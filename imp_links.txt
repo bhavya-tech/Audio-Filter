@@ -1,0 +1,4 @@
+1. matplotlib in wxwidget: 
+    https://www.cs.colorado.edu/~kena/classes/5448/s11/presentations/pearse.pdf
+    https://stackoverflow.com/questions/10737459/embedding-a-matplotlib-figure-inside-a-wxpython-panel
+
