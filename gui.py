@@ -1,4 +1,9 @@
+from engine import get_input_plot
 import wx
+from matplotlib import pyplot as plt
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+
 class Window(wx.Frame):
     def __init__(self, parent, title):
         super(Window,self).__init__(parent, title=title,size=(1024, 800))
@@ -12,7 +17,10 @@ class Window(wx.Frame):
         # First graph
         hiPan = wx.Panel(panel)
         hiPan.SetBackgroundColour('#0000ee')
-        vbox.Add(hiPan, wx.ID_ANY,wx.EXPAND | wx.ALL, border=10)
+        self.topfig = plt.figure()
+        self.topcanvas = FigureCanvas(self.topfig)
+        self.canvas = get_input_plot()
+        vbox.Add(self.canvas, wx.ID_ANY,wx.EXPAND | wx.ALL, border=10)
         panel.SetSizer(vbox)
 
 

@@ -1,4 +1,3 @@
-1. matplotlib in wxwidget: 
-    https://www.cs.colorado.edu/~kena/classes/5448/s11/presentations/pearse.pdf
-    https://stackoverflow.com/questions/10737459/embedding-a-matplotlib-figure-inside-a-wxpython-panel
-
+1. matplotlib in wxwidget with wxformbuilder: 
+    https://s231426.wordpress.com/2011/11/02/wxformbuilder_python/
+2. 
