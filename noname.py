@@ -17,7 +17,7 @@ import wx.xrc
 class MyFrame1 ( wx.Frame ):
 
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 1024,800 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 
@@ -44,6 +44,9 @@ class MyFrame1 ( wx.Frame ):
 
 		bSizer3 = wx.BoxSizer( wx.HORIZONTAL )
 
+		self.m_slider1 = wx.Slider( self, wx.ID_ANY, 50, 0, 100, wx.DefaultPosition, wx.DefaultSize, wx.SL_INVERSE|wx.SL_MIN_MAX_LABELS|wx.SL_VALUE_LABEL|wx.SL_VERTICAL )
+		bSizer3.Add( self.m_slider1, 0, wx.ALL|wx.EXPAND, 5 )
+
 		self.m_panel3 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		bSizer3.Add( self.m_panel3, 1, wx.EXPAND |wx.ALL, 5 )
 
@@ -66,6 +69,10 @@ class MyFrame1 ( wx.Frame ):
 
 		# Connect Events
 		self.m_button2.Bind( wx.EVT_BUTTON, self.render )
+		self.m_panel2.Bind( wx.EVT_SIZE, self.render )
+		self.m_slider1.Bind( wx.EVT_SCROLL, self.render_power )
+		self.m_panel3.Bind( wx.EVT_SIZE, self.render_power )
+		self.m_panel4.Bind( wx.EVT_SIZE, self.render_output )
 
 	def __del__( self ):
 		pass
@@ -73,6 +80,14 @@ class MyFrame1 ( wx.Frame ):
 
 	# Virtual event handlers, overide them in your derived class
 	def render( self, event ):
+		event.Skip()
+
+
+	def render_power( self, event ):
+		event.Skip()
+
+
+	def render_output( self, event ):
 		event.Skip()
 
 
