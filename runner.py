@@ -31,7 +31,9 @@ class Runner(noname.MyFrame1):
         if(self.power_rendered):
             self.canvas2.update_line(0,t,s,draw=True)
         else:
-            self.canvas2 = PlotPanel(self.m_panel3,size = (self.m_panel3.GetSize())).plot(t,s)
+            self.canvas2 = PlotPanel(self.m_panel3,size = (self.m_panel3.GetSize()))
+            self.canvas2.plot(t,s)
+            self.power_rendered = True
         
         return
 
