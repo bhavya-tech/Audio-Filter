@@ -23,8 +23,16 @@ class MyFrame1 ( wx.Frame ):
 
 		bSizer1 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_button2 = wx.Button( self, wx.ID_ANY, u"MyButton", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer1.Add( self.m_button2, 0, wx.ALL, 5 )
+		bSizer5 = wx.BoxSizer( wx.HORIZONTAL )
+
+		self.m_button2 = wx.Button( self, wx.ID_ANY, u"Import", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer5.Add( self.m_button2, 0, wx.ALL, 5 )
+
+		self.m_button21 = wx.Button( self, wx.ID_ANY, u"export", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer5.Add( self.m_button21, 0, wx.ALL, 5 )
+
+
+		bSizer1.Add( bSizer5, 0, 0, 3 )
 
 		bSizer2 = wx.BoxSizer( wx.HORIZONTAL )
 
