@@ -25,11 +25,11 @@ class MyFrame1 ( wx.Frame ):
 
 		bSizer5 = wx.BoxSizer( wx.HORIZONTAL )
 
+		self.m_filePicker1 = wx.FilePickerCtrl( self, wx.ID_ANY, wx.EmptyString, u"Select a file", u"*.*", wx.DefaultPosition, wx.DefaultSize, wx.FLP_DEFAULT_STYLE )
+		bSizer5.Add( self.m_filePicker1, 0, wx.ALL, 5 )
+
 		self.m_button2 = wx.Button( self, wx.ID_ANY, u"Import", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer5.Add( self.m_button2, 0, wx.ALL, 5 )
-
-		self.m_button21 = wx.Button( self, wx.ID_ANY, u"export", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer5.Add( self.m_button21, 0, wx.ALL, 5 )
 
 
 		bSizer1.Add( bSizer5, 0, 0, 3 )
@@ -60,6 +60,14 @@ class MyFrame1 ( wx.Frame ):
 
 
 		bSizer1.Add( bSizer4, 1, wx.EXPAND, 5 )
+
+		bSizer6 = wx.BoxSizer( wx.HORIZONTAL )
+
+		self.m_button21 = wx.Button( self, wx.ID_ANY, u"export", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer6.Add( self.m_button21, 0, wx.ALL, 5 )
+
+
+		bSizer1.Add( bSizer6, 0, wx.ALL, 5 )
 
 
 		self.SetSizer( bSizer1 )
