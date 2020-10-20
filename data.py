@@ -7,11 +7,16 @@ class Data:
         return
 
     @classmethod
-    def loadSound(cls,location):
-        print("in load sound")
-        
-        fs, cls.input_sound = backend.getAudio(location)
-        print(fs)
-        print(len(cls.input_sound))
+    def loadSound(cls,location): 
 
+        fs, cls.input_sound = backend.getAudio(location)
         cls.time = np.arange(0, len(cls.input_sound)/fs, 1/fs)
+    
+    @classmethod
+    def load_power_graph(cls, input_sound):
+        
+        cls.power = backend.furiour(input_sound)
+        cls.frequency = np.arange(len(cls.power))
+
+    
+        

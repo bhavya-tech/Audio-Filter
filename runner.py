@@ -32,42 +32,51 @@ class Runner(noname.MyFrame1):
             # Add it to the panel created in wxFormBuilder
             self.canvas1 = PlotPanel(
                 self.m_panel2, size=(self.m_panel2.GetSize()))
-            self.canvas1.plot(self.data.time, self.data.input_sound)
+            self.canvas1.plot(self.data.time, self.data.input_sound, linewidth=1)
 
             return
 
         else:
             self.canvas1.update_line(
-                0, self.data.time, self.data.input_sound, draw=True)
-            self.render_power(event)
-
+                0, self.data.time, self.data.input_sound,   linewidth=1, draw=True)
             return
 
     def render_power(self, event):
-        t, s = engine.power_plot()
-        if wx.Event.GetEventType(event) == 10084:
+        if wx.Event.GetEventType(event) == 10084 or wx.Event.GetEventType(event) == 10161:
 
-            min_p = int(np.amin(s))
-            max_p = int(np.amax(s))
+            min_p = int(np.amin(self.data.power))
+            max_p = int(np.amax(self.data.power))
 
             self.m_slider1.SetMax(max_p)
             self.m_slider1.SetMin(min_p)
             self.m_slider1.SetValue(min_p)
 
             if(self.power_rendered):
-                self.canvas2.update_line(0, t, s, draw=True)
+                self.canvas2.update_line(0, self.data.frequency, self.data.power, draw=True)
             else:
                 self.canvas2 = PlotPanel(
                     self.m_panel3, size=(self.m_panel3.GetSize()))
-                self.canvas2.plot(t, s, 'r')
-                self.canvas2.oplot(t, np.full((len(t)), min_p, 'g'))
+                self.canvas2.plot(self.data.frequency, self.data.power, 'r')
+                self.canvas2.oplot(self.data.frequency, np.full((len(self.data.frequency)), min_p))
                 self.power_rendered = True
 
             return
 
+        # For slider
         else:
+            
             p = self.m_slider1.GetValue()
-            self.canvas2.update_line(1, t, np.full((len(t)), p), draw=True)
+            if(self.power_rendered):
+                self.canvas2.update_line(1, self.data.frequency, np.full((len(self.data.frequency)), p), draw=True)
+
+            else:
+                min_p = int(np.amin(self.data.power))
+                self.canvas2 = PlotPanel(
+                    self.m_panel3, size=(self.m_panel3.GetSize()))
+                self.canvas2.plot(self.data.frequency, self.data.power, 'r')
+                self.canvas2.oplot(self.data.frequency, np.full((len(self.data.frequency)), min_p))
+                self.power_rendered = True
+
             self.render_output(event)
             return
 
@@ -94,9 +103,13 @@ class Runner(noname.MyFrame1):
 
     def loadAudio(self, event):
         self.data.loadSound(location=self.m_filePicker1.GetPath())
+        print("sound loaded")
+        self.data.load_power_graph(self.data.input_sound)
+        print("fft done")
         # Fire screen refresh event
         self.render(event)
-        # fft
+        self.data.load_power_graph(self.data.input_sound)
+        
         return
 
 
