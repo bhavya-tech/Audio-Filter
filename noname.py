@@ -17,7 +17,7 @@ import wx.xrc
 class MyFrame1 ( wx.Frame ):
 
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 1024,800 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 1024,600 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 
@@ -76,6 +76,7 @@ class MyFrame1 ( wx.Frame ):
 		self.Centre( wx.BOTH )
 
 		# Connect Events
+		self.m_filePicker1.Bind( wx.EVT_FILEPICKER_CHANGED, self.loadAudio )
 		self.m_button2.Bind( wx.EVT_BUTTON, self.render )
 		self.m_panel2.Bind( wx.EVT_SIZE, self.render )
 		self.m_slider1.Bind( wx.EVT_SCROLL, self.render_power )
@@ -87,6 +88,9 @@ class MyFrame1 ( wx.Frame ):
 
 
 	# Virtual event handlers, overide them in your derived class
+	def loadAudio( self, event ):
+		event.Skip()
+
 	def render( self, event ):
 		event.Skip()
 
