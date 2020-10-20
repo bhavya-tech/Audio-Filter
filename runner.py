@@ -95,7 +95,7 @@ class Runner(noname.MyFrame1):
     def loadAudio(self, event):
         self.data.loadSound(location=self.m_filePicker1.GetPath())
         # Fire screen refresh event
-        #self.render(event)
+        self.render(event)
         # fft
         return
 
