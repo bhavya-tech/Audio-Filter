@@ -93,12 +93,16 @@ def easyFourierTransformThreshold(time, signal, frequency=None, steps=None, sort
 
 rate, data = wavfile.read('eagle.wav')
 #print("HEy")
-fft_out = fft(data)
+#fft_out = fft(data)
 #print("helllllo")
-plt.plot(data, np.abs(fft_out))
-plt.show()
+#plt.plot(data, np.abs(fft_out))
+#plt.show()
 #print(data)
 #print(np.abs(fft_out))
+def fft(data):
+    fft_out = fft(data)
+    return fft_out
+
 
 
 '''
