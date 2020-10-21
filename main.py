@@ -4,7 +4,7 @@ from scipy.fftpack import fft
 from scipy.io import wavfile
 from scipy.io.wavfile import read
 
-rate, audio = wavfile.read('sine.wav')
+rate, audio = wavfile.read('eagle.wav')
 
 #audio = np.mean(audio, axis=1)
 
@@ -14,10 +14,10 @@ L = N / rate
 print(f'Audio length: {L:.2f} seconds') #total time of the audio in seconds
 
 #plt won't work in console, so need to be checked using GUI
-#f, ax = plt.subplots() 
-#ax.plot(np.arange(N) / rate, audio)
-#ax.set_xlabel('Time [s]')
-#ax.set_ylabel('Amplitude [unknown]');
+f, ax = plt.subplots() 
+ax.plot(np.arange(N) / rate, audio)
+ax.set_xlabel('Time [s]')
+ax.set_ylabel('Amplitude [unknown]');
 
 
 '''
