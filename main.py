@@ -1,24 +1,27 @@
 import numpy as np
 from numpy import fft
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 from scipy.fftpack import fft
 from scipy.io import wavfile
 from scipy.io.wavfile import read
+import sounddevice as sd
+import soundfile as sf
+    
 
-rate, audio = wavfile.read('eagle.wav')
+#rate, audio = wavfile.read('sine.wav')
 
 #audio = np.mean(audio, axis=1)
 
-N = audio.shape[0]
-L = N / rate
+#N = audio.shape[0]
+#L = N / rate
 
-print(f'Audio length: {L:.2f} seconds') #total time of the audio in seconds
+#print(f'Audio length: {L:.2f} seconds') #total time of the audio in seconds
 
 #plt won't work in console, so need to be checked using GUI
-f, ax = plt.subplots() 
-ax.plot(np.arange(N) / rate, audio)
-ax.set_xlabel('Time [s]')
-ax.set_ylabel('Amplitude [unknown]');
+#f, ax = plt.subplots() 
+#ax.plot(np.arange(N) / rate, audio)
+#ax.set_xlabel('Time [s]')
+#ax.set_ylabel('Amplitude [unknown]');
 
 
 '''
@@ -91,8 +94,7 @@ def easyFourierTransformThreshold(time, signal, frequency=None, steps=None, sort
 #a = read("sine.wav")
 #np.array(a[1],dtype=float)
 #print(a)
-
-rate, data = wavfile.read('eagle.wav')
+#rate, data = wavfile.read('sine.wav')
 #print("HEy")
 #fft_out = fft(data)
 #print("helllllo")
@@ -100,12 +102,36 @@ rate, data = wavfile.read('eagle.wav')
 #plt.show()
 #print(data)
 #print(np.abs(fft_out))
-def fft(data):
-    fft_out = np.fft.fft(data)
-    return fft_out
+#def fft(data):
+#fft_out = (np.fft.fftshift(data))
+#fftout = np.fft.fft(data)
+#    return fft_out
+#print(fft_out)
+#print(len(fft_out))
+#print(fftout)
+#print(len(fftout))
+#plt.plot(data, np.abs(fft_out))
+#plt.show()
+#plt.plot(data, np.abs(fftout))
+#plt.show()
+# Load the data and calculate the time of each sample
+
+samplerate, data = wavfile.read('eagle.wav')
+times = np.arange(0,len(data)/samplerate,1/samplerate) # kav ek sec
 
 
-
+# Make the plot
+# You can tweak the figsize (width, height) in inches
+plt.figure(figsize=(30, 4))
+#plt.plot(times, data)
+plt.plot(times, data)
+plt.xlim(times[0], times[-1])
+plt.xlabel('time (s)')
+plt.ylabel('amplitude')
+# You can set the format by changing the extension
+# like .pdf, .svg, .eps
+#plt.savefig('plot.png', dpi=100)
+plt.show()
 '''
 code to plot filtered and unfiltered fft signals..thought this could be helpful ;)
 subplot(2,1,1)
