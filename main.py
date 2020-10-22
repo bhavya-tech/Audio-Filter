@@ -1,4 +1,5 @@
 import numpy as np
+from numpy import fft
 import matplotlib.pyplot as plt
 from scipy.fftpack import fft
 from scipy.io import wavfile
@@ -100,7 +101,7 @@ rate, data = wavfile.read('eagle.wav')
 #print(data)
 #print(np.abs(fft_out))
 def fft(data):
-    fft_out = fft(data)
+    fft_out = np.fft.fft(data)
     return fft_out
 
 
