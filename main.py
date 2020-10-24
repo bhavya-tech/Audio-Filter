@@ -4,8 +4,7 @@ from matplotlib import pyplot as plt
 from scipy.fftpack import fft
 from scipy.io import wavfile
 from scipy.io.wavfile import read
-import sounddevice as sd
-import soundfile as sf
+
     
 
 #rate, audio = wavfile.read('sine.wav')
@@ -116,7 +115,7 @@ def easyFourierTransformThreshold(time, signal, frequency=None, steps=None, sort
 #plt.show()
 # Load the data and calculate the time of each sample
 
-samplerate, data = wavfile.read('eagle.wav')
+samplerate, data = wavfile.read('sin.wav')
 times = np.arange(0,len(data)/samplerate,1/samplerate) # kav ek sec
 
 
