@@ -44,20 +44,18 @@ class Runner(noname.MyFrame1):
     def render_power(self, event):
         if wx.Event.GetEventType(event) == 10084 or wx.Event.GetEventType(event) == 10161:
 
-            min_p = int(np.amin(self.data.power))
-            max_p = int(np.amax(self.data.power))
-
-            self.m_slider1.SetMax(max_p)
-            self.m_slider1.SetMin(min_p)
-            self.m_slider1.SetValue(min_p)
+            # self.m_slider1.SetMax(int(self.data.max))
+            # self.m_slider1.SetMin(int(self.data.min))
+            # self.m_slider1.SetValue(int(self.data.max))
 
             if(self.power_rendered):
                 self.canvas2.update_line(0, self.data.frequency, self.data.power, draw=True)
             else:
                 self.canvas2 = PlotPanel(
                     self.m_panel3, size=(self.m_panel3.GetSize()))
+                    
                 self.canvas2.plot(self.data.frequency, self.data.power, 'r')
-                self.canvas2.oplot(self.data.frequency, np.full((len(self.data.frequency)), min_p))
+                self.canvas2.oplot(self.data.frequency, np.full((len(self.data.frequency)), self.data.min))
                 self.power_rendered = True
 
             return
@@ -65,18 +63,18 @@ class Runner(noname.MyFrame1):
         # For slider
         else:
             
-            p = self.m_slider1.GetValue()
+            p = backend.get_cutoff_value(self.data.min, self.data.slope, self.m_slider1.GetValue())
             if(self.power_rendered):
                 self.canvas2.update_line(1, self.data.frequency, np.full((len(self.data.frequency)), p), draw=True)
 
             else:
-                min_p = int(np.amin(self.data.power))
                 self.canvas2 = PlotPanel(
                     self.m_panel3, size=(self.m_panel3.GetSize()))
                 self.canvas2.plot(self.data.frequency, self.data.power, 'r')
-                self.canvas2.oplot(self.data.frequency, np.full((len(self.data.frequency)), min_p))
+                self.canvas2.oplot(self.data.frequency, np.full((len(self.data.frequency)), self.data.min))
                 self.power_rendered = True
 
+            # Filteroutput()
             self.render_output(event)
             return
 
@@ -94,7 +92,7 @@ class Runner(noname.MyFrame1):
 
         else:
 
-            cutoff = self.m_slider1.GetValue()
+            cutoff = backend.get_cutoff_value(self.data.min, self.data.slope, self.m_slider1.GetValue())
 
             t, s = engine.output_plot(cutoff=cutoff)
 
@@ -109,6 +107,7 @@ class Runner(noname.MyFrame1):
         # Fire screen refresh event
         self.render(event)
         self.data.load_power_graph(self.data.input_sound)
+        self.render_power(event)
         
         return
 
