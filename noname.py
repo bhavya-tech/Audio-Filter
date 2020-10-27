@@ -79,7 +79,7 @@ class MyFrame1 ( wx.Frame ):
 		self.m_filePicker1.Bind( wx.EVT_FILEPICKER_CHANGED, self.loadAudio )
 		self.m_button2.Bind( wx.EVT_BUTTON, self.render )
 		self.m_panel2.Bind( wx.EVT_SIZE, self.render )
-		self.m_slider1.Bind( wx.EVT_SCROLL, self.render_power )
+		self.m_slider1.Bind( wx.EVT_SCROLL, self.slider_move )
 		self.m_panel3.Bind( wx.EVT_SIZE, self.render_power )
 		self.m_panel4.Bind( wx.EVT_SIZE, self.render_output )
 
@@ -95,9 +95,11 @@ class MyFrame1 ( wx.Frame ):
 		event.Skip()
 
 
-	def render_power( self, event ):
+	def slider_move( self, event ):
 		event.Skip()
 
+	def render_power( self, event ):
+		event.Skip()
 
 	def render_output( self, event ):
 		event.Skip()

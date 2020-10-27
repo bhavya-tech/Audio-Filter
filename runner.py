@@ -32,7 +32,8 @@ class Runner(noname.MyFrame1):
             # Add it to the panel created in wxFormBuilder
             self.canvas1 = PlotPanel(
                 self.m_panel2, size=(self.m_panel2.GetSize()))
-            self.canvas1.plot(self.data.time, self.data.input_sound, linewidth=1)
+            self.canvas1.plot(
+                self.data.time, self.data.input_sound, linewidth=1)
 
             return
 
@@ -49,33 +50,38 @@ class Runner(noname.MyFrame1):
             # self.m_slider1.SetValue(int(self.data.max))
 
             if(self.power_rendered):
-                self.canvas2.update_line(0, self.data.frequency, self.data.power, draw=True)
+                self.canvas2.update_line(
+                    0, self.data.frequency, self.data.power, draw=True)
             else:
                 self.canvas2 = PlotPanel(
                     self.m_panel3, size=(self.m_panel3.GetSize()))
-                    
+
                 self.canvas2.plot(self.data.frequency, self.data.power, 'r')
-                self.canvas2.oplot(self.data.frequency, np.full((len(self.data.frequency)), self.data.min))
+                self.canvas2.oplot(self.data.frequency, np.full(
+                    (len(self.data.frequency)), self.data.min))
                 self.power_rendered = True
 
             return
 
         # For slider
         else:
-            
-            p = backend.get_cutoff_value(self.data.min, self.data.slope, self.m_slider1.GetValue())
+
+            p = backend.get_cutoff_value(
+                self.data.min, self.data.slope, self.m_slider1.GetValue())
             if(self.power_rendered):
-                self.canvas2.update_line(1, self.data.frequency, np.full((len(self.data.frequency)), p), draw=True)
+                self.canvas2.update_line(1, self.data.frequency, np.full(
+                    (len(self.data.frequency)), p), draw=True)
 
             else:
                 self.canvas2 = PlotPanel(
                     self.m_panel3, size=(self.m_panel3.GetSize()))
                 self.canvas2.plot(self.data.frequency, self.data.power, 'r')
-                self.canvas2.oplot(self.data.frequency, np.full((len(self.data.frequency)), self.data.min))
+                self.canvas2.oplot(self.data.frequency, np.full(
+                    (len(self.data.frequency)), self.data.min))
                 self.power_rendered = True
 
             # Filteroutput()
-            self.render_output(event)
+            # self.render_output(event)
             return
 
     def render_output(self, event):
@@ -92,7 +98,8 @@ class Runner(noname.MyFrame1):
 
         else:
 
-            cutoff = backend.get_cutoff_value(self.data.min, self.data.slope, self.m_slider1.GetValue())
+            cutoff = backend.get_cutoff_value(
+                self.data.min, self.data.slope, self.m_slider1.GetValue())
 
             t, s = engine.output_plot(cutoff=cutoff)
 
@@ -106,10 +113,17 @@ class Runner(noname.MyFrame1):
         print("fft done")
         # Fire screen refresh event
         self.render(event)
-        self.data.load_power_graph(self.data.input_sound)
         self.render_power(event)
-        
+
         return
+
+    def slider_move(self, event):
+        self.render_power(event)
+
+        self.data.load_output(backend.get_cutoff_value(
+            self.data.min, self.data.slope, self.m_slider1.GetValue()))
+
+        self.render_output(event)
 
 
 # def getDpi():

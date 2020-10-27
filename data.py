@@ -21,3 +21,8 @@ class Data:
         cls.min = np.amin(cls.power)
         cls.max = np.amax(cls.power)
         cls.slope = (cls.max - cls.min) // 100
+
+    @classmethod
+    def load_output(cls, threshold):
+        cls.ifft = np.fft.ifft(cls.fft)
+            #np.array(filter(lambda x: abs(x) >= threshold, cls.fft)))
