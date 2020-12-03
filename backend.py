@@ -26,3 +26,14 @@ def furiour(array):
 
 def get_cutoff_value(min, slope, p):
     return min + slope * p
+
+def get_last_non_zero_index(array):
+    # print("\nget_last_non_zero_index")
+    threshold = max(array)/100
+    for i in reversed(range(len(array))):
+        if array[i] > threshold:
+            # print(i)
+            # print(array[i])
+            return i+1
+    # print(0)
+    return 0

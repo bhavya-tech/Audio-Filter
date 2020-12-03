@@ -1,12 +1,5 @@
-from matplotlib.backend_bases import Event
-from matplotlib.backends.backend_wxagg import \
-    FigureCanvasWxAgg as FigCanvas, \
-    NavigationToolbar2WxAgg as NavigationToolbar
-from matplotlib.figure import Figure
 import wx
-from wx.core import wxEVT_SIZE
 import noname
-import engine
 from wxmplot import PlotPanel
 import numpy as np
 import backend
@@ -29,6 +22,7 @@ class Runner(noname.MyFrame1):
         if wx.Event.GetEventType(event) == 10084 or wx.Event.GetEventType(event) == 10161:
 
             self.m_panel2.Refresh()
+
             # Add it to the panel created in wxFormBuilder
             self.canvas1 = PlotPanel(
                 self.m_panel2, size=(self.m_panel2.GetSize()))
@@ -45,20 +39,16 @@ class Runner(noname.MyFrame1):
     def render_power(self, event):
         if wx.Event.GetEventType(event) == 10084 or wx.Event.GetEventType(event) == 10161:
 
-            # self.m_slider1.SetMax(int(self.data.max))
-            # self.m_slider1.SetMin(int(self.data.min))
-            # self.m_slider1.SetValue(int(self.data.max))
-
             if(self.power_rendered):
                 self.canvas2.update_line(
-                    0, self.data.frequency, self.data.power, draw=True)
+                    0, self.data.truncated_frequency, self.data.truncated_power, draw=True)
             else:
                 self.canvas2 = PlotPanel(
                     self.m_panel3, size=(self.m_panel3.GetSize()))
 
-                self.canvas2.plot(self.data.frequency, self.data.power, 'r')
-                self.canvas2.oplot(self.data.frequency, np.full(
-                    (len(self.data.frequency)), self.data.min))
+                self.canvas2.plot(self.data.truncated_frequency, self.data.truncated_power, 'r')
+                self.canvas2.oplot(self.data.truncated_frequency, np.full(
+                    (len(self.data.truncated_frequency)), self.data.min))
                 self.power_rendered = True
 
             return
@@ -69,19 +59,17 @@ class Runner(noname.MyFrame1):
             p = backend.get_cutoff_value(
                 self.data.min, self.data.slope, self.m_slider1.GetValue())
             if(self.power_rendered):
-                self.canvas2.update_line(1, self.data.frequency, np.full(
-                    (len(self.data.frequency)), p), draw=True)
+                self.canvas2.update_line(1, self.data.truncated_frequency, np.full(
+                    (len(self.data.truncated_frequency)), p), draw=True)
 
             else:
                 self.canvas2 = PlotPanel(
                     self.m_panel3, size=(self.m_panel3.GetSize()))
-                self.canvas2.plot(self.data.frequency, self.data.power, 'r')
-                self.canvas2.oplot(self.data.frequency, np.full(
-                    (len(self.data.frequency)), self.data.min))
+                self.canvas2.plot(self.data.truncated_frequency, self.data.truncated_power, 'r')
+                self.canvas2.oplot(self.data.truncated_frequency, np.full(
+                    (len(self.data.truncated_frequency)), self.data.min))
                 self.power_rendered = True
 
-            # Filteroutput()
-            # self.render_output(event)
             return
 
     def render_output(self, event):

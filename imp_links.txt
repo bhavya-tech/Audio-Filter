@@ -1,3 +1,0 @@
-1. matplotlib in wxwidget with wxformbuilder: 
-    https://s231426.wordpress.com/2011/11/02/wxformbuilder_python/
-2. 
