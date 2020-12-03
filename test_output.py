@@ -2,17 +2,22 @@
 
 from data import Data
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 data= Data
-data.loadSound("./a.wav")
+data.loadSound("./test_audio/audiocheck.net_sin_3Hz_-3dBFS_1s (1).wav")
 data.load_power_graph()
-data.load_output(0)
 
-temp = data.ifft
-temp2 = data.input_sound
+temp = max(data.truncated_power)
 
-for i in range(len(temp)):
-    if abs(temp[i] - temp2[i]) > 0.001:
-        print("in: " + str(temp[i]))
-        print("out: " + str(temp2[i]))
+print("\nFrequency - Power fraction\n")
+
+for i in range(len(data.truncated_frequency)):
+    print(str(data.truncated_frequency[i]) + " - " + str(data.truncated_power[i]/temp))
+
+data.load_output(1e15)
+plt.plot(data.time,data.ifft)
+plt.show()
+
+print("\n")
