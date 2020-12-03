@@ -37,3 +37,6 @@ def get_last_non_zero_index(array):
             return i+1
     # print(0)
     return 0
+
+def export(filename,rate,data):
+    wavfile.write(filename,rate,data)

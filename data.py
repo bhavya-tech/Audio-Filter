@@ -31,9 +31,15 @@ class Data:
 
         ifft_freq = [0]
 
-        for i in range(len(cls.truncated_power)):
-            if cls.truncated_power[i] >= threshold:
+        for i in range(len(cls.power)):
+            if cls.power[i] >= threshold:
                 ifft_freq.append(cls.fft[i+1])
+            else:
+                ifft_freq.append(0)
                 
         temp = np.array(ifft_freq)
         cls.ifft = np.fft.irfft(temp, n=len(cls.time))
+
+    @classmethod
+    def export(cls):
+        backend.export("audio_filter_output.wav",cls.fs,cls.ifft)
