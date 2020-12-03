@@ -86,34 +86,37 @@ class Runner(noname.MyFrame1):
 
     def render_output(self, event):
 
-        if wx.Event.GetEventType(event) == 10084:
-            t, s = engine.output_plot()
+        if wx.Event.GetEventType(event) == 10084 or wx.Event.GetEventType(event) == 10161:
+
             self.m_panel4.Refresh()
 
             self.canvas3 = PlotPanel(
                 self.m_panel4, size=(self.m_panel4.GetSize()))
+            t, s = self.data.time, self.data.ifft
             self.canvas3.plot(t, s)
 
             return
 
         else:
-
-            cutoff = backend.get_cutoff_value(
-                self.data.min, self.data.slope, self.m_slider1.GetValue())
-
-            t, s = engine.output_plot(cutoff=cutoff)
+            t, s = self.data.time, self.data.ifft
 
             self.canvas3.update_line(0, t, s, draw=True)
             return
 
     def loadAudio(self, event):
+        ''' 
+        Loads audio from path and calls render functions.\n
+        wx event: 10161
+        '''
+
         self.data.loadSound(location=self.m_filePicker1.GetPath())
-        print("sound loaded")
-        self.data.load_power_graph(self.data.input_sound)
-        print("fft done")
+        # print("sound loaded")
+        self.data.load_power_graph()
+        # print("fft done")
         # Fire screen refresh event
         self.render(event)
         self.render_power(event)
+        self.render_output(event)
 
         return
 

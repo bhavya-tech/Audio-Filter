@@ -4,13 +4,20 @@ import numpy as np
 
 def getAudio(location):
     samplerate, data = wavfile.read(location)
-    return samplerate, data
+    # print(data)
+
+    if len(data.shape) == 1:
+        return samplerate, data
+
+    return samplerate, data.sum(axis=1)/data.shape[0]
+                
+    
 
 # https://www.kite.com/python/answers/how-to-plot-a-power-spectrum-in-python
 
 
 def power_spectrum(array):
-    return (np.abs(array))
+    return (np.abs(array) ** 2)
 
 
 def furiour(array):
