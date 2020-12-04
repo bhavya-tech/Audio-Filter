@@ -31,6 +31,8 @@ class MyFrame1 ( wx.Frame ):
 		self.m_button2 = wx.Button( self, wx.ID_ANY, u"Import", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer5.Add( self.m_button2, 0, wx.ALL, 5 )
 
+		self.m_button3 = wx.Button( self, wx.ID_ANY, u"Add Noise", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer5.Add( self.m_button3, 0, wx.ALL, 5 )
 
 		bSizer1.Add( bSizer5, 0, 0, 3 )
 
@@ -66,6 +68,8 @@ class MyFrame1 ( wx.Frame ):
 		self.m_button21 = wx.Button( self, wx.ID_ANY, u"export", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer6.Add( self.m_button21, 0, wx.ALL, 5 )
 
+		self.m_button22 = wx.Button(self, wx.ID_ANY, u"play", wx.DefaultPosition, wx.DefaultSize, 0)
+		bSizer6.Add( self.m_button22, 0, wx.ALL, 5 )
 
 		bSizer1.Add( bSizer6, 0, wx.ALL, 5 )
 
@@ -82,6 +86,10 @@ class MyFrame1 ( wx.Frame ):
 		self.m_slider1.Bind( wx.EVT_SCROLL, self.slider_move )
 		self.m_panel3.Bind( wx.EVT_SIZE, self.render_power )
 		self.m_panel4.Bind( wx.EVT_SIZE, self.render_output )
+		self.m_button21.Bind( wx.EVT_BUTTON, self.export)
+		self.m_button22.Bind( wx.EVT_BUTTON, self.play)
+		self.m_button3.Bind( wx.EVT_BUTTON, self.add_noise)
+
 
 	def __del__( self ):
 		pass
@@ -103,5 +111,13 @@ class MyFrame1 ( wx.Frame ):
 
 	def render_output( self, event ):
 		event.Skip()
+	
+	def export(self,event):
+		event.Skip()
 
+	def play(self,event):
+		event.Skip()
+
+	def add_noise(self,event):
+		event.Skip()
 

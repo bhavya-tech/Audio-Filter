@@ -1,9 +1,12 @@
 import wx
+from wx.core import wxEVT_NULL
 import noname
 from wxmplot import PlotPanel
 import numpy as np
 import backend
 import data
+import sounddevice as sd
+import time
 
 import matplotlib
 matplotlib.use('WXAgg')
@@ -26,14 +29,16 @@ class Runner(noname.MyFrame1):
             # Add it to the panel created in wxFormBuilder
             self.canvas1 = PlotPanel(
                 self.m_panel2, size=(self.m_panel2.GetSize()))
-            self.canvas1.plot(
-                self.data.time, self.data.input_sound, linewidth=1)
+
+            if hasattr(self.data, 'time') and hasattr(self.data, 'input_sound'):
+                self.canvas1.plot(
+                    self.data.time, self.data.input_sound)
 
             return
 
         else:
             self.canvas1.update_line(
-                0, self.data.time, self.data.input_sound,   linewidth=1, draw=True)
+                0, self.data.time, self.data.input_sound, draw=True)
             return
 
     def render_power(self, event):
@@ -46,10 +51,12 @@ class Runner(noname.MyFrame1):
                 self.canvas2 = PlotPanel(
                     self.m_panel3, size=(self.m_panel3.GetSize()))
 
-                self.canvas2.plot(self.data.truncated_frequency, self.data.truncated_power, 'r')
-                self.canvas2.oplot(self.data.truncated_frequency, np.full(
-                    (len(self.data.truncated_frequency)), self.data.min))
-                self.power_rendered = True
+                if hasattr(self.data, 'truncated_frequency') and hasattr(self.data, 'truncated_power'):
+                    self.canvas2.plot(self.data.truncated_frequency,
+                                      self.data.truncated_power, 'r')
+                    self.canvas2.oplot(self.data.truncated_frequency, np.full(
+                        (len(self.data.truncated_frequency)), self.data.min))
+                    self.power_rendered = True
 
             return
 
@@ -65,7 +72,8 @@ class Runner(noname.MyFrame1):
             else:
                 self.canvas2 = PlotPanel(
                     self.m_panel3, size=(self.m_panel3.GetSize()))
-                self.canvas2.plot(self.data.truncated_frequency, self.data.truncated_power, 'r')
+                self.canvas2.plot(self.data.truncated_frequency,
+                                  self.data.truncated_power, 'r')
                 self.canvas2.oplot(self.data.truncated_frequency, np.full(
                     (len(self.data.truncated_frequency)), self.data.min))
                 self.power_rendered = True
@@ -80,15 +88,16 @@ class Runner(noname.MyFrame1):
 
             self.canvas3 = PlotPanel(
                 self.m_panel4, size=(self.m_panel4.GetSize()))
-            t, s = self.data.time, self.data.ifft
-            self.canvas3.plot(t, s)
+
+            if hasattr(self.data, 'time') and hasattr(self.data, 'ifft'):
+                self.canvas3.plot(self.data.time, self.data.ifft)
 
             return
 
         else:
-            t, s = self.data.time, self.data.ifft
 
-            self.canvas3.update_line(0, t, s, draw=True)
+            self.canvas3.update_line(
+                0, self.data.time, self.data.ifft, draw=True)
             return
 
     def loadAudio(self, event):
@@ -98,9 +107,7 @@ class Runner(noname.MyFrame1):
         '''
 
         self.data.loadSound(location=self.m_filePicker1.GetPath())
-        # print("sound loaded")
         self.data.load_power_graph()
-        # print("fft done")
         # Fire screen refresh event
         self.render(event)
         self.render_power(event)
@@ -116,11 +123,20 @@ class Runner(noname.MyFrame1):
 
         self.render_output(event)
 
+    def export(self, event):
+        self.data.export()
 
-# def getDpi():
-    # px = float(wx.GetDisplaySize()[1])
-    # mm = float(wx.GetDisplaySizeMM()[1])
-    # return (px/(mm*0.0393701))
+    def play(self, event):
+        sd.play(self.data.ifft, self.data.fs)
+        time.sleep(len(self.data.input_sound)/self.data.fs)
+        sd.stop()
+
+    def add_noise(self, event):
+        self.data.add_noise()
+        self.render(event)
+        self.render_power(event)
+        self.render_output(event)
+
 
 def main():
     app = wx.App()
