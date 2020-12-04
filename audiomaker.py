@@ -3,7 +3,7 @@ from data import Data
 from backend import export
 
 data1= Data
-data1.loadSound("./test_audio/audiocheck.net_sin_3Hz_-3dBFS_1s (1).wav")
+data1.load_sound("./test_audio/audiocheck.net_sin_3Hz_-3dBFS_1s (1).wav")
 
 ra = np.random.rand(len(data1.input_sound)) * max(data1.input_sound)
 print(ra.shape)

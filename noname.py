@@ -1,18 +1,5 @@
-# -*- coding: utf-8 -*-
-
-###########################################################################
-## Python code generated with wxFormBuilder (version Oct 26 2018)
-## http://www.wxformbuilder.org/
-##
-## PLEASE DO *NOT* EDIT THIS FILE!
-###########################################################################
-
 import wx
 import wx.xrc
-
-###########################################################################
-## Class MyFrame1
-###########################################################################
 
 class MyFrame1 ( wx.Frame ):
 
@@ -81,8 +68,8 @@ class MyFrame1 ( wx.Frame ):
 
 		# Connect Events
 		self.m_filePicker1.Bind( wx.EVT_FILEPICKER_CHANGED, self.loadAudio )
-		self.m_button2.Bind( wx.EVT_BUTTON, self.render )
-		self.m_panel2.Bind( wx.EVT_SIZE, self.render )
+		self.m_button2.Bind( wx.EVT_BUTTON, self.render_input_sound )
+		self.m_panel2.Bind( wx.EVT_SIZE, self.render_input_sound )
 		self.m_slider1.Bind( wx.EVT_SCROLL, self.slider_move )
 		self.m_panel3.Bind( wx.EVT_SIZE, self.render_power )
 		self.m_panel4.Bind( wx.EVT_SIZE, self.render_output )
@@ -99,7 +86,7 @@ class MyFrame1 ( wx.Frame ):
 	def loadAudio( self, event ):
 		event.Skip()
 
-	def render( self, event ):
+	def render_input_sound( self, event ):
 		event.Skip()
 
 

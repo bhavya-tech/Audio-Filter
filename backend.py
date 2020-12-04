@@ -2,7 +2,8 @@ from scipy.io import wavfile
 import numpy as np
 
 
-def getAudio(location):
+def get_audio(location):
+    ''' Returns mono audio numpy array with samplerate'''
     samplerate, data = wavfile.read(location)
 
     if len(data.shape) == 1:

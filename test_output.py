@@ -1,12 +1,11 @@
 """ Testing if output is same as input with thershold 0 """
 
 from data import Data
-import numpy as np
 import matplotlib.pyplot as plt
 
 
 data= Data
-data.loadSound("./test_audio/audiocheck.net_sin_3Hz_-3dBFS_1s (1).wav")
+data.load_sound("./test_audio/audiocheck.net_sin_3Hz_-3dBFS_1s (1).wav")
 data.load_power_graph()
 
 temp = max(data.truncated_power)

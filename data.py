@@ -7,9 +7,11 @@ class Data:
         return
 
     @classmethod
-    def loadSound(cls, location):
+    def load_sound(cls, location):
+        ''' Loads wav file from "location" and calculates its fft.\n
+         Sets the same input as output sound as filter of 0 threshold'''
 
-        cls.fs, cls.input_sound = backend.getAudio(location)
+        cls.fs, cls.input_sound = backend.get_audio(location)
         cls.ifft = cls.input_sound
         cls.time = np.arange(0, len(cls.input_sound)/cls.fs, 1/cls.fs)
         cls.fft = backend.furiour(cls.input_sound)

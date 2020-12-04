@@ -1,5 +1,4 @@
 import wx
-from wx.core import wxEVT_NULL
 import noname
 from wxmplot import PlotPanel
 import numpy as np
@@ -20,13 +19,12 @@ class Runner(noname.MyFrame1):
     def __init__(self, parent):
         noname.MyFrame1.__init__(self, parent)
 
-    def render(self, event):
+    def render_input_sound(self, event):
 
         if wx.Event.GetEventType(event) == 10084 or wx.Event.GetEventType(event) == 10161:
 
             self.m_panel2.Refresh()
 
-            # Add it to the panel created in wxFormBuilder
             self.canvas1 = PlotPanel(
                 self.m_panel2, size=(self.m_panel2.GetSize()))
 
@@ -106,10 +104,10 @@ class Runner(noname.MyFrame1):
         wx event: 10161
         '''
 
-        self.data.loadSound(location=self.m_filePicker1.GetPath())
+        self.data.load_sound(location=self.m_filePicker1.GetPath())
         self.data.load_power_graph()
         # Fire screen refresh event
-        self.render(event)
+        self.render_input_sound(event)
         self.render_power(event)
         self.render_output(event)
 
@@ -133,7 +131,7 @@ class Runner(noname.MyFrame1):
 
     def add_noise(self, event):
         self.data.add_noise()
-        self.render(event)
+        self.render_input_sound(event)
         self.render_power(event)
         self.render_output(event)
 
